@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title> Something you should know about me!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            line-height: 1.5;
+            color: #333;
+            background-color: #f4f4f4;
+        }
+    </style>
+</head>
+
+<body class="p-9">
+    <header class="text-center mb-9">
+        <h1>Daniel's self profile</h1>
+        <p>Something you should know about me!</p>
+    </header>
+
+    <main class="container mx-auto max-w-xl bg-white p-9 rounded-lg shadow-lg">
+        <div class="flex flex-col items-center mb-9">
+            <img src="my_photo.jpg" alt="A picture of me">
+        </div>
+
+        <section class="mb-8">
+            <h2 class=“text-2xl font-semibold text-gray-700 mb-4">About me</h2>
+            <p class="mb-4">
+                <strong>Github Username:</strong><a href="https://github.com/Daniel0318JY1021"
+                    class="text-blue-500 hover:underline">DanielS</a>
+            </p>
+            <p>
+                I remember my last trip before coming to the US was to Toyko, Japan, which is for sure the number one
+                site people go to enjoy their holiday hahaha. The journey was excellent, and I was deeply impressed by
+                Japan's service industry and cuisine.
+            </p>
+        </section>
+
+        <section class="mb-8">
+            <h2 class=“text-2xl font-semibold text-gray-700 mb-4">My favorite links</h2>
+            <ul class="list-disc list-inside space-y-2">
+                <li><a href="https://www.linkedin.com/" class="text-blue-500 hover:underline"
+                        target="_blank">LinkedIn</a></li>
+                <li><a href="https://www.facebook.com/" class="text-blue-500 hover:underline"
+                        target="_blank">Facebook</a></li>
+                <li><a href="https://www.wikipedia.org/" class="text-blue-500 hover:underline"
+                        target="_blank">Wikipedia</a></li>
+            </ul>
+        </section>
+
+        <section>
+            <h2 class="text-2xl font-semibold text-gray-700 mb-4">Leave a Comment</h2>
+            <textarea id="comment-box" rows="5" placeholder="Share your thoughts here..."
+                class="w-full p-4 border rounded-lg resize-none focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
+        </section>
+
+        <section>
+            <h2 class='text-2xl font-semibold text-gray-700 mb-2'>Time clock</h2>
+            <p class="text-gray-600">The page will be redirected after<span id="indicator"
+                    class="text-red-500 font-bold">10</span>seconds </p>
+        </section>
+    </main>
+
+    <footer class="text-center mt-10 text-gray-500 text-sm">
+        <p>&copy; 2025 My Name. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Use a counter variable to keep track of the seconds.
+        let counter = 10;
+        const indicator = document.getElementById('indicator');
+
+        //Set a timeout to alert the user after 5 seconds.
+        setTimeout(function () {
+            alert('the page will redirect when the counter reaches zero');
+        }, 5000);
+
+        // Use an interval to update the counter every second.
+        const countdownInterval = setInterval(function () {
+            counter--;
+            indicator.textContent = counter;
+
+            // Check if the counter has reached zero.
+            if (counter <= 0) {
+                clearInterval(countdownInterval);
+
+                //Redirect the page
+                window.location.href = "https://www.rice.edu";
+            }
+        }, 1000);
+
+
+    </script>
+</body>
+
+</html>
