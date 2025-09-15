@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Profile Page - My Social App</title>
+    <meta name="author" content="Yiran Shi">
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+    <div class="container">
+        <h1>User Profile</h1>
+        <a class="nav-link" href="main.html">Return to Main Page</a>
+
+        <div class="profile-form">
+            <div class="profile-field">
+                <span class="profile-label">Display Name:</span>
+                <span id="displayNameValue" class="profile-value">abc</span>
+                <input type="text" id="displayNameInput" class="profile-input" placeholder="New Display Name">
+            </div>
+
+            <div class="profile-field">
+                <span class="profile-label">Email Address:</span>
+                <span id="emailValue" class="profile-value">abc@abc.com</span>
+                <input type="email" id="emailInput" class="profile-input" placeholder="New Email">
+            </div>
+
+            <div class="profile-field">
+                <span class="profile-label">Phone Number:</span>
+                <span id="phoneValue" class="profile-value">123-123-1234</span>
+                <input type="tel" id="phoneInput" class="profile-input" placeholder="New Phone Number">
+            </div>
+
+            <div class="profile-field-inline">
+                <span class="profile-label">Zip Code:</span>
+                <span id="zipCodeValue" class="profile-value">12345</span>
+                <input type="text" id="zipCodeInput" class="profile-input" placeholder="New Zip Code">
+            </div>
+
+            <div class="profile-field-inline">
+                <span class="profile-label">Password:</span>
+                <span id="passwordValue" class="profile-value">abc123</span>
+                <input type="password" id="passwordInput" class="profile-input" placeholder="New Password">
+            </div>
+
+            <div class="profile-field-inline">
+                <span class="profile-label">Password Confirmation:</span>
+                <input type="password" id="passwordConfirmInput" class="profile-input" placeholder="Confirm Password">
+            </div>
+
+            <button id="updateButton">Update</button>
+        </div>
+
+        <div id="updateMessage"></div>
+    </div>
+
+    <script src="profile.js"></script>
+</body>
+
+</html>

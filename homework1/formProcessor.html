@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form Processor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Form Submission Results</h1>
+        <table id="resultsTable">
+            <thead>
+                <tr>
+                    <th>Field Name</th>
+                    <th>Value</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Data will be inserted here by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var urlParams = new URLSearchParams(window.location.search);
+            var tableBody = document.querySelector('#resultsTable tbody');
+
+            for (var [key, value] of urlParams.entries()) {
+                var displayValue = value;
+
+                if (key === 'password' || key === 'password_confirmation') {
+                    displayValue = '*'.repeat(value.length);
+                } else if (key === 'timestamp') {
+                    var date = new Date(parseInt(value));
+                    displayValue = date.toLocaleString();
+                }
+
+                var row = document.createElement('tr');
+                var keyCell = document.createElement('td');
+                keyCell.textContent = key;
+                var valueCell = document.createElement('td');
+                valueCell.textContent = displayValue;
+
+                row.appendChild(keyCell);
+                row.appendChild(valueCell);
+                tableBody.appendChild(row);
+            }
+        };
+    </script>
+</body>
+
+</html>

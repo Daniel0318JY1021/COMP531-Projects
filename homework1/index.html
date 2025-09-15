@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Yiran Shi">
+    <title>Registration Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        form div {
+            margin-bottom: 15px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="password"] {
+            width: 90%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        #submitBtn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        #clearBtn {
+            background-color: #6c757d;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>User Registration</h1>
+        <form id="registrationForm" action="formProcessor.html" method="get" onsubmit="return validateForm()">
+            <div>
+                <label for="accountName">Account Name:</label>
+                <input type="text" id="accountName" name="accountName" required>
+            </div>
+            <div>
+                <label for="displayName">Display Name (Optional):</label>
+                <input type="text" id="displayName" name="displayName">
+            </div>
+            <div>
+                <label for="email">Email Address:</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div>
+                <label for="phone">Phone Number:</label>
+                <input type="tel" id="phone" name="phone" required>
+            </div>
+            <div>
+                <label for="dob">Date of Birth:</label>
+                <input type="date" id="dob" name="dob" required>
+            </div>
+            <div>
+                <label for="zipcode">Zipcode:</label>
+                <input type="text" id="zipcode" name="zipcode" required>
+            </div>
+            <div>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+            </div>
+            <div>
+                <label for="password_confirmation">Password Confirmation:</label>
+                <input type="password" id="password_confirmation" name="password_confirmation" required>
+            </div>
+            <input type="hidden" name="timestamp" id="timestamp">
+            <div class="buttons">
+                <button type="button" id="clearBtn">Clear</button>
+                <button type="submit" id="submitBtn">Submit</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateForm() {
+            var accountName = document.getElementById('accountName').value;
+            var email = document.getElementById('email').value;
+            var phone = document.getElementById('phone').value;
+            var dob = document.getElementById('dob').value;
+            var password = document.getElementById('password').value;
+            var passwordConfirmation = document.getElementById('password_confirmation').value;
+            var messages = [];
+
+            // Account Name Validation
+            if (!/^[a-zA-Z][a-zA-Z0-9]*$/.test(accountName)) {
+                messages.push("Account name must start with a letter and contain only letters and numbers.");
+            }
+
+            // Email Validation (simple check)
+            if (!/@/.test(email)) {
+                messages.push("Please enter a valid email address.");
+            }
+
+            // Phone Number Validation (simple check)
+            if (!/^\d{3}-\d{3}-\d{4}$/.test(phone)) {
+                messages.push("Please enter a valid phone number (e.g., 123-456-7890).");
+            }
+
+            // Age Validation
+            var today = new Date();
+            var birthDate = new Date(dob);
+            var age = today.getFullYear() - birthDate.getFullYear();
+            var m = today.getMonth() - birthDate.getMonth();
+            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+                age--;
+            }
+            if (age < 18) {
+                messages.push("You must be 18 years of age or older to register.");
+            }
+            if (/^\d{5}(-\d{4})?$/.test(zipcode)) {
+                messages.push("Please enter a valid US Zipcode (e.g., 12345 or 12345-6789).")
+            }
+
+            // Password Validation
+            if (password !== passwordConfirmation) {
+                messages.push("Password and password confirmation do not match.");
+            }
+
+            if (messages.length > 0) {
+                alert("Form validation failed:\n\n" + messages.join("\n"));
+                return false;
+            }
+
+            // Set timestamp and submit
+            document.getElementById('timestamp').value = Date.now();
+            return true;
+        }
+
+        document.getElementById('clearBtn').addEventListener('click', function () {
+            document.getElementById('registrationForm').reset();
+        });
+    </script>
+</body>
+
+</html>
