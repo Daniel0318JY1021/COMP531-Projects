@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+.square {
+  background: #fff;
+  border: 1px solid #999;
+  font-size: 38px;
+  font-weight: bold;
+  line-height: 34px;
+  height: 34px;
+  margin-right: -1px;
+  margin-top: -1px;
+  padding: 0;
+  text-align: center;
+  width: 34px;
+}
+
+.square:focus {
+  outline: none;
+  background: #ddd;
+}
+
+

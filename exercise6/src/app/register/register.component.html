@@ -1,0 +1,14 @@
+<div>
+  <h2>Register Players</h2>
+  <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <div>
+      <label for="player1">Player 1 Name:</label>
+      <input id="player1" type="text" formControlName="player1" required>
+    </div>
+    <div>
+      <label for="player2">Player 2 Name:</label>
+      <input id="player2" type="text" formControlName="player2" required>
+    </div>
+    <button type="submit">Start Game</button>
+  </form>
+</div>

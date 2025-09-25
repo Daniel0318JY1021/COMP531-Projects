@@ -1,0 +1,40 @@
+#divHeadline {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: #333;
+  text-align: center;
+}
+
+.square {
+  width: 80px;
+  height: 80px;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 2px;
+  border: 2px solid #333;
+  background-color: #f8f9fa;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.square:hover {
+  background-color: #e9ecef;
+  transform: scale(1.05);
+}
+
+.square:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+div {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+#divHeadline {
+  display: block;
+  margin-bottom: 20px;
+}

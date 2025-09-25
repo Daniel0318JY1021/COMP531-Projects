@@ -1,0 +1,19 @@
+
+<h3 class="mx-5">Players for tic-tac-toe {{headline}}</h3>
+<form class="mx-5 border border-info-subtle col-md-2" [formGroup]="regForm" (ngSubmit)="onSubmit()">
+  <div id="div1" class="mx-3 my-3">
+    <label for="uname1" class="form-label">Player1</label>
+    <input type="text" id="uname1" class="form-control" name="uname1" formControlName="uname1" placeholder="P1 Username">
+  </div>
+  <div id="div2" class="mx-3 mb-3">
+    <label for="uname2" class="form-label">Player2</label>
+    <input type="text" id="uname2" class="form-control" name="uname2" formControlName="uname2" placeholder="P2 Username">
+  </div>
+  <div id="div3" class="mx-3 mb-3">
+    <input type="checkbox" id="rememberMe">
+    <label for="rememberMe" class="mx-2 form-label">Remember Me</label>
+  </div>
+  <div id="div4" class="mx-3 mb-3">
+    <input type="submit" id="submitForm" class="form-control btn btn-primary" value="Register">
+  </div>
+</form>
