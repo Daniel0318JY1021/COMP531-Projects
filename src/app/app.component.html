@@ -1,0 +1,24 @@
+<div class="app-container">
+    <header class="app-header" *ngIf="isLoggedInRoute()">
+        <div class="container">
+            <div class="header-content">
+                <h1 class="logo">folkZone</h1>
+                <nav class="nav">
+                    <a routerLink="/main" routerLinkActive="active">Main</a>
+                    <a routerLink="/profile" routerLinkActive="active">Profile</a>
+                    <button class="btn btn-secondary" (click)="logout()">Log Out</button>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="app-main">
+        <router-outlet></router-outlet>
+    </main>
+
+    <footer class="app-footer" *ngIf="isLoggedInRoute()">
+        <div class="container">
+            <p>&copy; 2024 folkZone - A place for folly</p>
+        </div>
+    </footer>
+</div>

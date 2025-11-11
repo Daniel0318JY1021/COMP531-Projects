@@ -1,0 +1,108 @@
+<div class="main-container">
+    <header class="main-header">
+        <div class="header-content">
+            <h1>📱 Social Network</h1>
+
+            <div class="user-info">
+                <span class="username">{{ currentUser?.name || currentUser?.username }}</span>
+                <button class="btn-profile" (click)="goToProfile()">
+                    👤 Profile
+                </button>
+                <button class="btn-logout" (click)="logout()">
+                    🚪 Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <div class="main-content">
+        <aside class="sidebar" *ngIf="currentUser">
+            <div class="user-card">
+                <div class="user-avatar">
+                    {{ currentUser.username.charAt(0).toUpperCase() }}
+                </div>
+                <h3>{{ currentUser.name }}</h3>
+                <p class="user-email">{{ currentUser.email }}</p>
+
+                <div class="headline-section">
+                    <p class="current-headline" *ngIf="currentUser.headline">
+                        "{{ currentUser.headline }}"
+                    </p>
+
+                    <div class="headline-form">
+                        <input type="text" [(ngModel)]="newHeadline" placeholder="Update your headline..."
+                            (keyup.enter)="updateHeadline()">
+                        <button class="btn-update" (click)="updateHeadline()" [disabled]="!newHeadline.trim()">
+                            Update
+                        </button>
+                    </div>
+                </div>
+
+                <div class="stats">
+                    <div class="stat-item">
+                        <span class="stat-value">{{ (currentUser.followedUserIds || []).length }}</span>
+                        <span class="stat-label">Following</span>
+                    </div>
+                </div>
+
+                <!-- API Testing Section -->
+                <div class="api-test-section">
+                    <h4>🧪 API Testing</h4>
+                    <button class="btn-test" (click)="testApiEndpoints()">
+                        Test Backend Connection
+                    </button>
+                    <div class="test-results" *ngIf="testResults.length > 0">
+                        <div *ngFor="let result of testResults" class="test-result">
+                            {{ result }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-section">
+                <input type="text" [(ngModel)]="searchKeyword" placeholder="🔍 Search posts..." class="search-input">
+            </div>
+        </aside>
+
+        <main class="feed-section">
+            <!-- New Article Form -->
+            <div class="new-article-section">
+                <h3>📝 Create New Article</h3>
+                <textarea [(ngModel)]="newArticleText" 
+                         placeholder="What's on your mind?"
+                         rows="3"
+                         class="article-input"></textarea>
+                <button class="btn-post" 
+                        (click)="postArticle()" 
+                        [disabled]="!newArticleText.trim()">
+                    Post Article
+                </button>
+            </div>
+
+            <!-- Articles Feed -->
+            <div class="articles-section">
+                <h3>📰 Articles Feed</h3>
+                <div class="loading" *ngIf="loading">Loading articles...</div>
+                
+                <div class="articles-list" *ngIf="!loading">
+                    <div class="article-card" *ngFor="let article of articles">
+                        <div class="article-header">
+                            <strong>{{ article.author }}</strong>
+                            <span class="article-date">{{ article.date | date:'medium' }}</span>
+                        </div>
+                        <div class="article-content">
+                            {{ article.text }}
+                        </div>
+                        <div class="article-footer" *ngIf="article.comments && article.comments.length > 0">
+                            <small>{{ article.comments.length }} comments</small>
+                        </div>
+                    </div>
+                    
+                    <div class="no-articles" *ngIf="articles.length === 0">
+                        No articles found. Create the first one!
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>

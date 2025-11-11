@@ -1,0 +1,84 @@
+<div class="posts-container">
+    <!-- New Post Button -->
+    <div class="new-post-header">
+        <button class="btn-new-post" (click)="toggleNewPostForm()">
+            {{ showNewPostForm ? '✖ Cancel' : '✏️ Create New Post' }}
+        </button>
+    </div>
+
+    <!-- New Post Form -->
+    <div class="new-post-form" *ngIf="showNewPostForm">
+        <h3>Create a New Post</h3>
+        <input type="text" [(ngModel)]="newPostTitle" placeholder="Post title..." class="post-title-input">
+        <textarea [(ngModel)]="newPostBody" placeholder="What's on your mind?" rows="4"
+            class="post-body-input"></textarea>
+        <button class="btn-submit-post" (click)="submitNewPost()"
+            [disabled]="!newPostTitle.trim() || !newPostBody.trim()">
+            📤 Post
+        </button>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading" *ngIf="isLoading">
+        <div class="spinner"></div>
+        <p>Loading posts...</p>
+    </div>
+
+    <!-- No Posts -->
+    <div class="no-posts" *ngIf="!isLoading && filteredPosts.length === 0">
+        <div class="no-posts-icon">📭</div>
+        <p>No posts found</p>
+        <p class="no-posts-hint">Try adjusting your search or follow more users</p>
+    </div>
+
+    <!-- Posts List -->
+    <div class="post-card" *ngFor="let post of filteredPosts">
+        <div class="post-header">
+            <div class="post-author">
+                <div class="avatar">{{ post.userId }}</div>
+                <div class="author-info">
+                    <h3>User {{ post.userId }}</h3>
+                    <span class="post-time">{{ post.timestamp | date:'short' }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="post-content">
+            <h4>{{ post.title }}</h4>
+            <p>{{ post.body }}</p>
+        </div>
+
+        <div class="post-footer">
+            <button class="comments-toggle" (click)="toggleComments(post.id)">
+                <span class="icon">💬</span>
+                {{ showComments[post.id] ? 'Hide' : 'Show' }} Comments
+                <span class="badge" *ngIf="getCommentsCount(post.id) > 0">
+                    {{ getCommentsCount(post.id) }}
+                </span>
+            </button>
+        </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section" *ngIf="showComments[post.id]">
+            <div class="loading-comments" *ngIf="loadingComments[post.id]">
+                <div class="spinner-small"></div>
+                Loading comments...
+            </div>
+
+            <div class="comments-list" *ngIf="!loadingComments[post.id] && postComments[post.id]">
+                <div class="comment" *ngFor="let comment of postComments[post.id]">
+                    <div class="comment-header">
+                        <strong>{{ comment.name }}</strong>
+                        <span class="comment-email">{{ comment.email }}</span>
+                    </div>
+                    <p class="comment-body">{{ comment.body }}</p>
+                </div>
+            </div>
+
+            <div class="no-comments" *ngIf="!loadingComments[post.id] && postComments[post.id]?.length === 0">
+                <span class="no-comments-icon">💭</span>
+                No comments yet. Be the first to comment!
+            </div>
+        </div>
+    </div>
+</div>

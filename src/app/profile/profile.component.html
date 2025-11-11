@@ -1,0 +1,103 @@
+<div class="profile-container">
+    <h2>User Profile</h2>
+
+    <!-- Success/Error Messages -->
+    <div *ngIf="successMessage" class="alert alert-success">
+        {{ successMessage }}
+    </div>
+    <div *ngIf="errorMessage" class="alert alert-error">
+        {{ errorMessage }}
+    </div>
+
+    <!-- Profile Form -->
+    <div class="profile-section">
+        <h3>Personal Information</h3>
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
+            <div class="form-group">
+                <label for="username">Username (Read-only)</label>
+                <input type="text" id="username" [value]="currentUser?.username || ''" readonly class="readonly-field">
+            </div>
+
+            <div class="form-group">
+                <label for="name">Display Name *</label>
+                <input type="text" id="name" formControlName="name"
+                    [class.error]="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">
+                <div class="error-message" *ngIf="profileForm.get('name')?.invalid && profileForm.get('name')?.touched">
+                    Name is required
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" formControlName="email"
+                    [class.error]="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+                <div class="error-message"
+                    *ngIf="profileForm.get('email')?.invalid && profileForm.get('email')?.touched">
+                    Please enter a valid email address
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="phone">Phone (123-456-7890)</label>
+                <input type="tel" id="phone" formControlName="phone" placeholder="123-456-7890"
+                    [class.error]="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
+                <div class="error-message"
+                    *ngIf="profileForm.get('phone')?.invalid && profileForm.get('phone')?.touched">
+                    Phone format: 123-456-7890
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="zipcode">Zipcode (5 digits)</label>
+                <input type="text" id="zipcode" formControlName="zipcode" placeholder="12345" maxlength="5"
+                    [class.error]="profileForm.get('zipcode')?.invalid && profileForm.get('zipcode')?.touched">
+                <div class="error-message"
+                    *ngIf="profileForm.get('zipcode')?.invalid && profileForm.get('zipcode')?.touched">
+                    Zipcode must be 5 digits
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" formControlName="dob">
+            </div>
+
+            <div class="button-group">
+                <button type="button" (click)="toggleEdit()" class="btn btn-secondary">
+                    {{ isEditing ? 'Cancel' : 'Edit Profile' }}
+                </button>
+                <button type="submit" *ngIf="isEditing" class="btn btn-primary" [disabled]="profileForm.invalid">
+                    Save Changes
+                </button>
+            </div>
+
+            <p class="note">* Username and ID cannot be changed</p>
+        </form>
+    </div>
+
+    <!-- Followed Users Section -->
+    <div class="profile-section">
+        <h3>Followed Users</h3>
+
+        <div class="add-follower-form">
+            <input type="text" [(ngModel)]="newFollowerUsername" placeholder="Enter username to follow"
+                (keyup.enter)="addFollower()">
+            <button (click)="addFollower()" class="btn btn-primary">Follow</button>
+        </div>
+
+        <div class="followed-users-list" *ngIf="followedUsers.length > 0; else noFollowers">
+            <div class="user-card" *ngFor="let user of followedUsers">
+                <div class="user-details">
+                    <h4>{{ user.name }}</h4>
+                    <p class="username">{{ '&#64;' + user.username }}</p>
+                    <p class="email">{{ user.email }}</p>
+                </div>
+                <button (click)="unfollow(user.id)" class="btn btn-danger">Unfollow</button>
+            </div>
+        </div>
+
+        <ng-template #noFollowers>
+            <p class="no-followers">You are not following anyone yet.</p>
+        </ng-template>
+    </div>
+</div>

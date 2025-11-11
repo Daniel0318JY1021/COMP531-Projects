@@ -1,0 +1,56 @@
+<div class="auth-container">
+    <div class="login-card">
+        <h2>Welcome Back</h2>
+        <p class="subtitle">Sign in to continue</p>
+
+        <form [formGroup]="loginForm" (ngSubmit)="onLogin()">
+            <div class="form-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" formControlName="username" placeholder="Enter your username"
+                    [class.invalid]="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                <div class="error" *ngIf="loginForm.get('username')?.invalid && loginForm.get('username')?.touched">
+                    Username is required
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" formControlName="password" placeholder="Enter your password"
+                    [class.invalid]="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                <div class="error" *ngIf="loginForm.get('password')?.invalid && loginForm.get('password')?.touched">
+                    Password is required
+                </div>
+            </div>
+
+            <!-- API Test Status -->
+            <div class="api-status" *ngIf="apiTestMessage">
+                <i class="status-icon">🔗</i>
+                {{ apiTestMessage }}
+            </div>
+
+            <div class="error-message" *ngIf="errorMessage">
+                <i class="error-icon">⚠️</i>
+                {{ errorMessage }}
+            </div>
+
+            <button type="submit" class="btn-primary" [disabled]="loginForm.invalid || isLoading">
+                {{ isLoading ? 'Connecting to backend...' : 'Sign In' }}
+            </button>
+        </form>
+
+        <div class="register-prompt">
+            <p>Don't have an account?
+                <a (click)="goToRegister()" class="register-link">Register here</a>
+            </p>
+        </div>
+
+        <div class="info-box">
+            <p><strong>Backend Integration Test:</strong></p>
+            <p>This login will attempt to connect to your backend server at localhost:3000</p>
+            <p>Make sure your backend is running with CORS enabled!</p>
+            <br>
+            <p><strong>Test Credentials (if you have them in your backend):</strong></p>
+            <p>Use any username/password combination that exists in your backend database</p>
+        </div>
+    </div>
+</div>

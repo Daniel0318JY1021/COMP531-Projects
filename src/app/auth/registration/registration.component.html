@@ -1,0 +1,83 @@
+<div class="register-container">
+    <div class="register-card">
+        <h2>Create Account</h2>
+        <p class="subtitle">Join us today</p>
+
+        <form [formGroup]="registerForm" (ngSubmit)="onRegister()">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="username">Username *</label>
+                    <input type="text" id="username" formControlName="username" placeholder="Choose a username">
+                    <div class="error"
+                        *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched">
+                        Username must be at least 3 characters
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="name">Full Name *</label>
+                    <input type="text" id="name" formControlName="name" placeholder="Enter your full name">
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email *</label>
+                <input type="email" id="email" formControlName="email" placeholder="your.email@example.com">
+                <div class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched">
+                    Please enter a valid email
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="password">Password *</label>
+                <input type="password" id="password" formControlName="password" placeholder="At least 6 characters">
+                <div class="error"
+                    *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+                    Password must be at least 6 characters
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="phone">Phone *</label>
+                    <input type="tel" id="phone" formControlName="phone" placeholder="123-456-7890">
+                    <div class="error" *ngIf="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched">
+                        Format: 123-456-7890
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="zipcode">Zipcode *</label>
+                    <input type="text" id="zipcode" formControlName="zipcode" placeholder="12345">
+                    <div class="error"
+                        *ngIf="registerForm.get('zipcode')?.invalid && registerForm.get('zipcode')?.touched">
+                        5 digits required
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="dob">Date of Birth *</label>
+                <input type="date" id="dob" formControlName="dob">
+            </div>
+
+            <div class="success-message" *ngIf="successMessage">
+                ✓ {{ successMessage }}
+            </div>
+
+            <div class="error-message" *ngIf="errorMessage">
+                ⚠️ {{ errorMessage }}
+            </div>
+
+            <button type="submit" class="btn-primary" [disabled]="registerForm.invalid || isLoading">
+                {{ isLoading ? 'Creating Account...' : 'Create Account' }}
+            </button>
+        </form>
+
+        <div class="login-prompt">
+            <p>Already have an account?
+                <a (click)="goToLogin()" class="login-link">Sign in here</a>
+            </p>
+        </div>
+    </div>
+</div>
